@@ -5,7 +5,7 @@ import re
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 #czy hasła są takie same
 #czy username wolny
@@ -62,9 +62,21 @@ def login_user(request):
     if request.method == 'GET':
         return render(request, 'login_user.html', {'form': AuthenticationForm()})
     else:
-        username = username = request.POST.get('username')
+        username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('home')
+        else:
+            usernameExist = User.objects.filter(username=username).exists()
+            if usernameExist:
+                error = 'Incorrect password.'
+            else:
+                error = 'No such user in database.'
+            return render(request, 'login_user.html', {'error': error, 'form': AuthenticationForm()})
+
+             
+def logout_user(request):
+    logout(request)
+    return redirect('home')

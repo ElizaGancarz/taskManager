@@ -1,4 +1,9 @@
-<h>Login</h>
+{% if error %}
+    <h2>{{error}}</h2>
+{% endif %}
+
+<h1>Login</h1>
+
 <form action="{% url 'login_user' %}" method="POST">
     {{form}}
     {% csrf_token %}
