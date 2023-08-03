@@ -6,6 +6,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 #czy hasła są takie same
 #czy username wolny
@@ -76,7 +77,7 @@ def login_user(request):
                 error = 'No such user in database.'
             return render(request, 'login_user.html', {'error': error, 'form': AuthenticationForm()})
 
-             
+@login_required           
 def logout_user(request):
     logout(request)
     return redirect('home')

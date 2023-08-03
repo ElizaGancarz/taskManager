@@ -14,11 +14,13 @@
 
     {% endblock content %}
     {% if user.is_authenticated %}
-
+    <!-- {% if request.path == '' %} -->
     <a href="{% url 'home' %}">Home</a>
+    <!-- {% endif %} -->
     <a href="{% url 'create' %}">Create new task</a>
-    <a href="{% url 'logout_user' %}">Log out</a>
     <a href="{% url 'tasks' %}">View tasks</a>
+    <a href="{% url 'logout_user' %}">Log out</a>
+    
 
 {% else %}
     <a href="{% url 'login_user' %}"> Log in</a>
