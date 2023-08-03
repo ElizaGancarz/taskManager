@@ -1,4 +1,11 @@
-<h1>Register</h1>
+{% extends 'base.html' %}
+ 
+ {% block title %}
+    Register
+ {% endblock title %}
+
+{% block content %}
+<h2>Register</h2> 
 <p>{{message}}</p>
 
 {% if error %}
@@ -21,3 +28,5 @@
     {% csrf_token %}
     <button type="submit">Register</button>
 </form>
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+ 
+ {% block title %}
+    Edit
+ {% endblock title %}
+
+
+ 
+{% block content %}
+<h2>Edit your task</h2>
+{% if error %}
+    {{error}}
+{% endif %}
+
+<form action="{% url 'detail' task.id %}" method="post">
+    {{form}}
+    {% csrf_token %}
+    <button type="submit">Admit changes</button>
+</form>
+<p>Created: {{task.createDate}}</p>
+<a href="{% url 'delete_task' task.id %}">Delete</a>
+<a href="{% url 'tasks' %}">Go back</a>
+
+{% endblock content %}

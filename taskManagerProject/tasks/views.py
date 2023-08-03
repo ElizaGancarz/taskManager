@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
 from .forms import TaskForm
 
@@ -7,8 +7,9 @@ def home(request):
     return render(request, 'home.html')
 
 def tasks(request):
-    usersTasks = Task.objects.filter(user=request.user)
-    return render(request, 'tasks.html', {'tasks':usersTasks})
+    current = Task.objects.filter(user=request.user, completeDate__isnull = True)
+    completed = Task.objects.filter(user=request.user, completeDate__isnull = False)
+    return render(request, 'tasks.html', {'current':current, 'completed': completed})
 
 def create(request):
     if request.method == 'GET':
@@ -23,4 +24,22 @@ def create(request):
         else:
             error = 'Something went wrong. Try again.'
             return render(request, 'create.html', {'error': error, 'form':TaskForm})
+        
+def delete_task(request, taskId):
+    task = get_object_or_404(Task, id=taskId)
+    task.delete()
+    return redirect('tasks')
 
+def detail(request, taskId):
+    task = get_object_or_404(Task, id=taskId)
+    if request.method == 'GET':
+        form = TaskForm(instance=task)
+        return render(request, 'detail.html', {'form':form, 'task':task})
+    else: #POST
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('tasks')
+        else:
+            error = 'Something went wrong. Try again.'
+            return render(request, 'detail.html', {'error':error, 'form':form, 'task':task})

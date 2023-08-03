@@ -1,5 +1,14 @@
-<h1>Create task</h1>
+{% extends 'base.html' %}
+ 
+ {% block title %}
+    Create task
+ {% endblock title %}
 
+
+
+{% block content %}
+    
+<h2>Create new task</h2>
 {% if error %}
     {{error}}
 {% endif %}
@@ -9,3 +18,5 @@
     {% csrf_token %}
     <button type="submit">Create task</button>
 </form>
+
+{% endblock content %}
