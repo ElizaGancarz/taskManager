@@ -8,7 +8,7 @@ class Task(models.Model):
     createDate = models.DateTimeField(auto_now_add=True)
     completeDate = models.DateTimeField(blank=True, null=True)
     importance = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE) #cascade - usuń taska
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     def __str__(self):

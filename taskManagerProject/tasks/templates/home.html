@@ -3,6 +3,10 @@
 {% if user.is_authenticated %}
     <h2>Welcome {{user}}</h2>
     <a href="{% url 'logout_user' %}">Log out</a>
+    <a href="{% url 'tasks' %}">View tasks</a>
+    <a href="{% url 'create' %}">Create new task</a>
+
+
 {% else %}
     <a href="{% url 'register' %}"> Register</a>
     <a href="{% url 'login_user' %}"> Log in</a>

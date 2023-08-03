@@ -1,0 +1,11 @@
+<h1>Create task</h1>
+
+{% if error %}
+    {{error}}
+{% endif %}
+
+<form action="{% url 'create' %}" method="post">
+    {{form}}
+    {% csrf_token %}
+    <button type="submit">Create task</button>
+</form>
