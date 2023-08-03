@@ -19,6 +19,7 @@
 </form>
 <p>Created: {{task.createDate}}</p>
 <a href="{% url 'delete_task' task.id %}">Delete</a>
+<a href="{% url 'complete' task.id %}">Mark as completed</a>
 <a href="{% url 'tasks' %}">Go back</a>
 
 {% endblock content %}

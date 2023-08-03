@@ -6,6 +6,8 @@
 
  {% block content %}
  <h2> Your tasks </h2>
+
+ {% if current %}
  <h2>Current</h2>
 {% for task in current %}
    <a href="{% url 'detail' task.id %}">
@@ -13,12 +15,19 @@
    </a>
 {% endfor %}
 
+{% endif %}
+
+
+{% if completed %}
+
 <h2>Completed</h2>
 {% for task in completed%}
    <a href="{% url 'detail' task.id %}">
    <h2>{{task.title}}</h2>
    </a>
 {% endfor %}
+
+{% endif %}
 {% endblock content %}
 
 

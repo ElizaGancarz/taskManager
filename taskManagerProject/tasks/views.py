@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
 from .forms import TaskForm
+from django.utils import timezone
 
 # Create your views here.
 def home(request):
@@ -43,3 +44,10 @@ def detail(request, taskId):
         else:
             error = 'Something went wrong. Try again.'
             return render(request, 'detail.html', {'error':error, 'form':form, 'task':task})
+
+
+def complete(request, taskId):
+    task = get_object_or_404(Task, id=taskId)
+    task.completeDate = timezone.now()
+    task.save()
+    return redirect('tasks')
